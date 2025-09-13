@@ -35,7 +35,10 @@ git push origin main
 - `Python/` → material do professor  
 - `data/` → material do professor  
 - `trabalhos_realizados/` → **meus trabalhos e anotações**
-  - `webscrapy_41b.py` - Trabalho de web scraping para coleta de dados
+  - **Exercício de Web Scraping (4.1b):**
+    - `webscrapy_41b.py`: Versão inicial do script. Realiza a busca no Google e extrai os resultados em um único fluxo.
+    - `webscrapy_41b_v2.py`: Versão refatorada e melhorada, com funções separadas e mais robustez. **(Recomendado para estudo)**
+    - `webscraping_41b_resultado.csv`: Arquivo com os dados coletados pelo script (título e URL).
 
 
 ---
