@@ -24,20 +24,20 @@ Manutenção:
 - Para mudar o termo de busca, altere DEFAULT_QUERY ou passe a parametrizar.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # Permite o uso de anotações de tipo como strings
 
-import csv
-import os
-from typing import List, Dict, Tuple
+import csv  # Para manipulação de arquivos CSV
+import os  # Para interação com o sistema de arquivos
+from typing import List, Dict, Tuple  # Tipos para anotações estáticas
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium import webdriver  # Framework principal de automação web
+from selenium.webdriver.common.by import By  # Estratégias de localização de elementos
+from selenium.webdriver.common.keys import Keys  # Teclas especiais do teclado
+from selenium.webdriver.support.ui import WebDriverWait  # Para esperas explícitas
+from selenium.webdriver.support import expected_conditions as EC  # Condições de espera
+from webdriver_manager.chrome import ChromeDriverManager  # Gerenciador do ChromeDriver
+from selenium.webdriver.chrome.service import Service  # Configuração do serviço do Chrome
+from selenium.webdriver.chrome.options import Options  # Opções de configuração do navegador
 
 
 # ----------------------------- Constantes ------------------------------------
@@ -47,10 +47,10 @@ DEFAULT_QUERY: str = "gov.br"
 # Seletores candidatos para encontrar os títulos (h3) de resultados orgânicos.
 # A ordem importa: usamos o primeiro que retornar elementos.
 CANDIDATE_SELECTORS: List[Tuple[str, str]] = [
-    (By.CSS_SELECTOR, "div#search a h3"),
-    (By.CSS_SELECTOR, "div#rso a h3"),
-    (By.XPATH, "//div[@id='search']//a//h3"),
-    (By.XPATH, "//a//h3"),
+    (By.CSS_SELECTOR, "div#search a h3"), # seletor usando css selector e id search
+    (By.CSS_SELECTOR, "div#rso a h3"), # seletor usando css selector e id rso
+    (By.XPATH, "//div[@id='search']//a//h3"), # seletor usando xpath e id search
+    (By.XPATH, "//a//h3"), # seletor usando xpath
 ]
 
 # Caminho de saída do CSV (relativo ao projeto/fork do aluno)
@@ -67,19 +67,19 @@ def build_chrome_driver() -> webdriver.Chrome:
     - user-agent “realista”: reduz bloqueios triviais.
     - `--lang=pt-BR`: melhora a chance de rótulos tipo “Aceitar/Concordo” aparecerem.
     """
-    chrome_options = Options()
+    chrome_options = Options() 
     # Descomente para rodar sem abrir janela (CI/servidor):
     # chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument("--lang=pt-BR")
-    chrome_options.add_argument("--start-maximized")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_argument("--lang=pt-BR") # define o idioma do navegador
+    chrome_options.add_argument("--start-maximized") # abre o navegador maximizado
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled") # desabilita o automação do navegador
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
-    )
+    ) # define o user agent do navegador para evitar bloqueios
 
     driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
+        service=Service(ChromeDriverManager().install()), 
         options=chrome_options
     )
     return driver
@@ -197,7 +197,7 @@ def main() -> None:
     """
     driver = build_chrome_driver()
     try:
-        wait = WebDriverWait(driver, 20)
+        wait = WebDriverWait(driver, 20) 
         search_google(driver, wait, DEFAULT_QUERY)
 
         resultados = collect_results(driver)
