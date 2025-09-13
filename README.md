@@ -35,6 +35,8 @@ git push origin main
 - `Python/` → material do professor  
 - `data/` → material do professor  
 - `trabalhos_realizados/` → **meus trabalhos e anotações**
+  - `webscrapy_41b.py` - Trabalho de web scraping para coleta de dados
+
 
 ---
 
